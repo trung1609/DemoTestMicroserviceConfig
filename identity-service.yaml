@@ -1,7 +1,7 @@
 spring:
   application:
     name: identity-service
-    datasource:
+  datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/identity-service_demotest
     username: postgres
