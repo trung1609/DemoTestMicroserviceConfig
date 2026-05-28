@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: gateway-service
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: identity-service
+              uri: lb://IDENTITY-SERVICE
+              predicates:
+                - Path=/api/auth/**
+            - id: product-service
+              uri: lb://PRODUCT-SERVICE
+              predicates:
+                - Path=/api/products/**
+server:
+  port: 8686
+
+jwt:
+  secret: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30
+  expiration_access_token: 86400000
+  expiration_refresh_token: 604800000
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
